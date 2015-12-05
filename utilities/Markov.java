@@ -15,7 +15,7 @@ public class Markov
     private Multimap<String, String> map = HashMultimap.create();
     
     
-    public void generateMarkovChain(String input)
+    public Multimap<String, String> generateMarkovChain(String input)
     {
         // parse through input
         // tokenize everything bu twos'
@@ -36,7 +36,7 @@ public class Markov
         
         for(int i = 0; i < wordsArrayList.size(); i++)
         {
-          Pattern p = Pattern.compile(wordsArrayList.get(i)+" ([A-z]*)");  
+          Pattern p = Pattern.compile(wordsArrayList.get(i)+" ([a-zA-Z0-9]*)");  
           Matcher m = p.matcher(input);
           while(m.find())
           {
@@ -51,8 +51,15 @@ public class Markov
           System.out.println(wordsArrayList.get(i)+" = "+map.get(wordsArrayList.get(i)));
           
         }
+        
+        return map;
 
     }
+
+        public ArrayList<String> getTokenizationByTwos()
+        {
+            return this.wordsArrayList;
+        }
 
     
 }

@@ -64,6 +64,7 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
         @Override
         public void actionPerformed(ActionEvent e) {
             controller.CreateMarkovChains(txtAreaInput.getText());
+            controller.GenerateRandomText();
 
         }
 
