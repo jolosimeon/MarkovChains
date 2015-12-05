@@ -19,7 +19,7 @@ public class MainFrame extends JFrame {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setBounds(0, 0, 800, 350);
-                this.setSize(450, 200);
+                this.setSize(450, 350);
 		iconPath = "src/advdiscIcon.png";
                 ImageIcon img = new ImageIcon(iconPath);
                 setIconImage(img.getImage());

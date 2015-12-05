@@ -18,8 +18,6 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
 	private MainFrame mainFrame;
 
 	/** Controller */
-	//private StringAlignerController controller;
-	// BacktrackController backtrackController;
 	private MarkovChainsController controller;
         
 	
@@ -45,21 +43,36 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
 
     JButton btnOpenFile = new JButton("Open File");
     JButton btnClear = new JButton("Clear");
-    JTextArea txtArea = new JTextArea();
+    JButton btnGenerate = new JButton("Generate");
+    JTextArea txtAreaInput = new JTextArea();
+    JTextArea txtAreaOutput = new JTextArea();
 
-    
+    add(btnGenerate);
     add(btnOpenFile);
     add(btnClear);
-    add(txtArea);
+    add(txtAreaInput);
+    add(txtAreaOutput);
     
-    btnOpenFile.setBounds(50,125,150,25);
-    btnClear.setBounds(250,125,150,25);
-    txtArea.setBounds(10,10,420,110);
+    btnGenerate.setBounds(125,125,150,25);
+    btnOpenFile.setBounds(50,260,150,25);
+    btnClear.setBounds(250,260,150,25);
+    txtAreaInput.setBounds(10,10,420,110);
+    txtAreaOutput.setBounds(10,150,420,110);
+    
+    txtAreaInput.setText("");
+    btnGenerate.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            controller.CreateMarkovChains(txtAreaInput.getText());
+
+        }
+
+    });
     
     btnClear.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            txtArea.setText(""); 
+            txtAreaInput.setText(""); 
 
         }
 
@@ -84,6 +97,7 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
         });
 
     }
+    
 
 
 
