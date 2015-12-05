@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 
 public class Markov
@@ -28,9 +29,11 @@ public class Markov
                   twoWords = words[i] + " " + words[i + 1]; 
               else 
                   twoWords = words[i] + " " + words[i + 1];
+              if(!wordsArrayList.contains(twoWords))
                   wordsArrayList.add(twoWords);
               
     }
+        
         for(int i = 0; i < wordsArrayList.size(); i++)
         {
           Pattern p = Pattern.compile(wordsArrayList.get(i)+" ([A-z]*)");  
