@@ -15,6 +15,7 @@ public class MarkovChainsController {
 
         private IMarkovChainsView view;
         private Markov markov;
+        private int outputLength = 5;
        
         public MarkovChainsController(IMarkovChainsView view) {
             this.view = view;
@@ -27,9 +28,19 @@ public class MarkovChainsController {
             markov.generateMarkovChain(input);
         }
 
-        public String getGeneratedMarkovChains(int nLength)
+        public String getGeneratedMarkovChains()
         {
-            return markov.getGeneratedMarkovChain(nLength);
+            return markov.getGeneratedMarkovChain(outputLength);
+        }
+        
+        public int getLength()
+        {
+            return outputLength;
+        }
+        
+        public void setLength(int outputLength)
+        {
+            this.outputLength = outputLength;
         }
 
 }

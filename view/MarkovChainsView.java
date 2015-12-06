@@ -11,7 +11,9 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import controller.MarkovChainsController;
 import java.io.File;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class MarkovChainsView extends JPanel implements IMarkovChainsView, ActionListener, KeyListener  {
@@ -44,18 +46,21 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
     JButton btnOpenFile = new JButton("Open File");
     JButton btnClear = new JButton("Clear");
     JButton btnGenerate = new JButton("Generate");
+    JButton btnSetLength = new JButton("Output Length: " + controller.getLength());
     JTextArea txtAreaInput = new JTextArea();
     JTextArea txtAreaOutput = new JTextArea();
 
     add(btnGenerate);
     add(btnOpenFile);
     add(btnClear);
+    add(btnSetLength);
     add(txtAreaInput);
     add(txtAreaOutput);
     
-    btnGenerate.setBounds(125,125,150,25);
+    btnGenerate.setBounds(160,125,150,25);
     btnOpenFile.setBounds(50,260,150,25);
     btnClear.setBounds(250,260,150,25);
+    btnSetLength.setBounds(160, 290, 150, 25);
     txtAreaInput.setBounds(10,10,420,110);
     txtAreaOutput.setBounds(10,150,420,110);
     txtAreaInput.setWrapStyleWord(true);
@@ -68,7 +73,7 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
         @Override
         public void actionPerformed(ActionEvent e) {
             controller.CreateMarkovChains(txtAreaInput.getText());
-            txtAreaOutput.setText(controller.getGeneratedMarkovChains(5));
+            txtAreaOutput.setText(controller.getGeneratedMarkovChains());
         }
 
     });
@@ -100,9 +105,23 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
             }
 
         });
+    
+    btnSetLength.addActionListener(new ActionListener() {
+        @Override
+	public void actionPerformed(ActionEvent e) {
+		JOptionPane temp = new JOptionPane();
+                String inputValue = (String) temp.showInputDialog(mainFrame, "Please input a value", "Set Output Length", JOptionPane.QUESTION_MESSAGE, null, null, "5"); 
+                controller.setLength(Integer.valueOf(inputValue));
+                btnSetLength.setText("Output Length: " + controller.getLength());
+                controller.CreateMarkovChains(txtAreaInput.getText());
+                txtAreaOutput.setText(controller.getGeneratedMarkovChains());
+        }
+    });
 
     }
     
+    
+   
 
 
 
