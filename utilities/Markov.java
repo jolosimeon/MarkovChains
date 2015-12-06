@@ -9,25 +9,27 @@ import java.util.Vector;
 
 
 public class Markov {
-    public static Hashtable<String, Vector<String>> markovChain = new Hashtable<String, Vector<String>>();
-    static Random rnd = new Random();
-    public Markov(String sInput)
-    {
-        // Create the first two entries (k:_start, k:_end)
+
+	// Hashmap
+	public static Hashtable<String, Vector<String>> markovChain = new Hashtable<String, Vector<String>>();
+	static Random rnd = new Random();
+	
+	
+	/*
+	 * Main constructor
+	 */
+	public Markov() {
+		
+		// Create the first two entries (k:_start, k:_end)
 		markovChain.put("_start", new Vector<String>());
 		markovChain.put("_end", new Vector<String>());
 		
-		// Add the words to the hash table
-		addWords(sInput);
-		
-                
-    }
-
+	}
 	
 	/*
 	 * Add words
 	 */
-	public static void addWords(String phrase) {
+	public static void generateMarkovChain(String phrase) {
 		// put each word into an array
 		String[] words = phrase.split(" ");
 				
@@ -66,17 +68,16 @@ public class Markov {
 				}
 			}
 		}		
-		generateSentence();
 	}
 	
 	
 	/*
 	 * Generate a markov phrase
 	 */
-	public static void generateSentence() {
+	public String getGeneratedMarkovChain(int nLength) {
 		
 		// Vector to hold the phrase
-		Vector<String> newPhrase = new Vector<String>();
+		String newPhrase = "";
 		
 		// String for the next word
 		String nextWord = "";
@@ -85,18 +86,22 @@ public class Markov {
 		Vector<String> startWords = markovChain.get("_start");
 		int startWordsLen = startWords.size();
 		nextWord = startWords.get(rnd.nextInt(startWordsLen));
-		newPhrase.add(nextWord);
+		newPhrase = newPhrase.concat(nextWord + " ");
 		
+
 		// Keep looping through the words until we've reached the end
-		while (nextWord.charAt(nextWord.length()-1) != '.') {
+		for(int i = 0 ; i < nLength; i++){
 			Vector<String> wordSelection = markovChain.get(nextWord);
+                        if(wordSelection == null)
+                        {
+                            wordSelection = markovChain.get("_start");
+                        }
 			int wordSelectionLen = wordSelection.size();
 			nextWord = wordSelection.get(rnd.nextInt(wordSelectionLen));
-			newPhrase.add(nextWord);
+			newPhrase = newPhrase.concat(nextWord + " ");
 		}
 		
-		System.out.println("New phrase: " + newPhrase.toString());	
+		System.out.println("New phrase: " + newPhrase.toString());
+                return newPhrase.toString();
 	}
-    }
-
-	
+}

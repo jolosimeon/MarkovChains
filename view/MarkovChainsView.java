@@ -11,11 +11,16 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import controller.MarkovChainsController;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 
 public class MarkovChainsView extends JPanel implements IMarkovChainsView, ActionListener, KeyListener  {
 	private MainFrame mainFrame;
+        private String readedString = "";
 
 	/** Controller */
 	private MarkovChainsController controller;
@@ -64,8 +69,7 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
         @Override
         public void actionPerformed(ActionEvent e) {
             controller.CreateMarkovChains(txtAreaInput.getText());
-            controller.GenerateRandomText();
-
+            txtAreaOutput.setText(controller.getGeneratedMarkovChains(5));
         }
 
     });
@@ -88,14 +92,35 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
                 fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
                 int result = fileChooser.showOpenDialog(fileChooser);
                 if (result == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    fileChooser.setVisible(false);
+                    try {
+                        // File selectedFile = fileChooser.getSelectedFile();
+                        // Get the selected file
+                        java.io.File file = fileChooser.getSelectedFile();
+                        
+                        // Create a Scanner for the file
+                        Scanner input = new Scanner(file);
+                        
+                        // Read text from the file
+                        while (input.hasNext()) {
+                            //System.out.println(input.nextLine());
+                            readedString = readedString.concat(input.nextLine());
+                            
+                        }
+                        txtAreaInput.append(readedString);
+                        
+                        // Close the file
+                        input.close();
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(MarkovChainsView.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                      }
+                      else {
+                        System.out.println("No file selected");
                 }
-        
+                                fileChooser.setVisible(false);
+                            }
 
-            }
-
-        });
+                 });
 
     }
     
