@@ -3,6 +3,7 @@ package utilities;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 import java.util.Vector;
@@ -21,6 +22,7 @@ public class Markov {
 	public Markov() {
 		
 		// Create the first two entries (k:_start, k:_end)
+            this.markovChain = new Hashtable<String, Vector<String>>();
 		markovChain.put("_start", new Vector<String>());
 		markovChain.put("_end", new Vector<String>());
 		
@@ -100,6 +102,7 @@ public class Markov {
                         {
                             wordSelection = markovChain.get("_start");
                         }
+                        System.out.println(wordSelection);
 			int wordSelectionLen = wordSelection.size();
 			nextWord = wordSelection.get(rnd.nextInt(wordSelectionLen));
 			newPhrase = newPhrase.concat(nextWord + " ");
@@ -117,10 +120,19 @@ public class Markov {
             Hashtable<String, Integer> statistics = new Hashtable<String, Integer>();
             
             Vector<String> startWords = markovChain.get("_start");
-            
+            ArrayList<String> uniqueWords = new ArrayList<String>();
             for(int i = 0; i < startWords.size(); i++){
-            System.out.println(startWords.get(i));
-            statistics.put(startWords.get(i), 1);
+            if(!statistics.containsKey(startWords.get(i))){
+                statistics.put(startWords.get(i), 1);
+                uniqueWords.add(startWords.get(i));
+            }else{
+                int value = statistics.remove(startWords.get(i));
+                value++;
+                statistics.put(startWords.get(i), value);
+                }
             }
+            for(int i = 0; i < uniqueWords.size(); i ++)
+            System.out.println("Probability of first word being: \"" + uniqueWords.get(i) + "\" is " + 1.0 * statistics.get(startWords.get(i))/startWords.size());
+            
         }
 }

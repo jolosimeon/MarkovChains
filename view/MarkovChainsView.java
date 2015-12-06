@@ -145,7 +145,7 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
 		JOptionPane temp = new JOptionPane();
                 String inputValue = (String) temp.showInputDialog(mainFrame, "Please input a value", "Set Output Length", JOptionPane.QUESTION_MESSAGE, null, null, controller.getLength()); 
                 controller.setLength(Integer.valueOf(inputValue));
-                btnSetLength.setText("Output Length: " + controller.getLength());
+                btnSetLength.setText("Output Length: " + controller.getLength() + 1);
                 controller.CreateMarkovChains(txtAreaInput.getText());
                 txtAreaOutput.setText(controller.getGeneratedMarkovChains());
         }
