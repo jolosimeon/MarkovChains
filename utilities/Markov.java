@@ -31,9 +31,6 @@ public class Markov {
 	 */
 	public static void generateMarkovChain(String phrase) {
                 //refresh hashtable
-                markovChain = new Hashtable<String, Vector<String>>();
-                markovChain.put("_start", new Vector<String>());
-		markovChain.put("_end", new Vector<String>());
 		
             
 		// put each word into an array
@@ -109,6 +106,21 @@ public class Markov {
 		}
 		
 		System.out.println("New phrase: " + newPhrase.toString());
+                
+                generateStatistics();
                 return newPhrase.toString();
+               
 	}
+        
+        public void generateStatistics()
+        {
+            Hashtable<String, Integer> statistics = new Hashtable<String, Integer>();
+            
+            Vector<String> startWords = markovChain.get("_start");
+            
+            for(int i = 0; i < startWords.size(); i++){
+            System.out.println(startWords.get(i));
+            statistics.put(startWords.get(i), 1);
+            }
+        }
 }
