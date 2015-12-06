@@ -24,7 +24,9 @@ public class MarkovChainsController {
         
         public void CreateMarkovChains(String input)
         {
-            markov.generateMarkovChain(input);
+            String[] inputSentences = input.split("\\. ");
+            for(int i = 0; i < inputSentences.length; i++)
+            markov.generateMarkovChain(inputSentences[i]);
         }
 
         public String getGeneratedMarkovChains(int nLength)
