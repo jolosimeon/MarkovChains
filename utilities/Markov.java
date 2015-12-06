@@ -88,10 +88,14 @@ public class Markov {
 		nextWord = startWords.get(rnd.nextInt(startWordsLen));
 		newPhrase = newPhrase.concat(nextWord + " ");
 		
+
 		// Keep looping through the words until we've reached the end
 		for(int i = 0 ; i < nLength; i++){
 			Vector<String> wordSelection = markovChain.get(nextWord);
-                        System.out.println(wordSelection.size());
+                        if(wordSelection == null)
+                        {
+                            wordSelection = markovChain.get("_start");
+                        }
 			int wordSelectionLen = wordSelection.size();
 			nextWord = wordSelection.get(rnd.nextInt(wordSelectionLen));
 			newPhrase = newPhrase.concat(nextWord + " ");
