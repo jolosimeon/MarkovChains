@@ -30,6 +30,12 @@ public class Markov {
 	 * Add words
 	 */
 	public static void generateMarkovChain(String phrase) {
+                //refresh hashtable
+                markovChain = new Hashtable<String, Vector<String>>();
+                markovChain.put("_start", new Vector<String>());
+		markovChain.put("_end", new Vector<String>());
+		
+            
 		// put each word into an array
 		String[] words = phrase.split(" ");
 				
