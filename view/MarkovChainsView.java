@@ -63,6 +63,10 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
     btnClear.setBounds(250,260,150,25);
     txtAreaInput.setBounds(10,10,420,110);
     txtAreaOutput.setBounds(10,150,420,110);
+    txtAreaInput.setWrapStyleWord(true);
+    txtAreaOutput.setWrapStyleWord(true);
+    txtAreaInput.setLineWrap(true);
+    txtAreaOutput.setLineWrap(true);
     
     txtAreaInput.setText("");
     btnGenerate.addActionListener(new ActionListener() {
@@ -78,6 +82,7 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
         @Override
         public void actionPerformed(ActionEvent e) {
             txtAreaInput.setText(""); 
+            txtAreaOutput.setText("");
 
         }
 
