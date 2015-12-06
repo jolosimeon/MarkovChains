@@ -62,8 +62,8 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
     add(btnOpenFile);
     add(btnClear);
     add(btnSetLength);
-    add(txtAreaInput);
-    add(txtAreaOutput);
+    //add(txtAreaInput);
+    //add(txtAreaOutput);
     add(inputScroll);
     add(outputScroll);
     
@@ -73,6 +73,8 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
     btnSetLength.setBounds(160, 290, 150, 25);
     txtAreaInput.setBounds(10,10,420,110);
     txtAreaOutput.setBounds(10,150,420,110);
+    inputScroll.setBounds(10,10,420,110);
+    outputScroll.setBounds(10,150,420,110);
     txtAreaInput.setWrapStyleWord(true);
     txtAreaOutput.setWrapStyleWord(true);
     txtAreaInput.setLineWrap(true);
