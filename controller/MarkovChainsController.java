@@ -21,11 +21,15 @@ public class MarkovChainsController {
              this.markov = new Markov();
                
         }
+        
         public void CreateMarkovChains(String input)
         {
             markov.generateMarkovChain(input);
         }
 
-       
+        public String getGeneratedMarkovChains(int nLength)
+        {
+            return markov.getGeneratedMarkovChain(nLength);
+        }
 
 }
