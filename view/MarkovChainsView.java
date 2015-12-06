@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 
 public class MarkovChainsView extends JPanel implements IMarkovChainsView, ActionListener, KeyListener  {
@@ -54,13 +55,17 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
     JButton btnSetLength = new JButton("Output Length: " + controller.getLength());
     JTextArea txtAreaInput = new JTextArea();
     JTextArea txtAreaOutput = new JTextArea();
-
+    JScrollPane inputScroll = new JScrollPane(txtAreaInput);
+    JScrollPane outputScroll = new JScrollPane(txtAreaOutput);
+    
     add(btnGenerate);
     add(btnOpenFile);
     add(btnClear);
     add(btnSetLength);
     add(txtAreaInput);
     add(txtAreaOutput);
+    add(inputScroll);
+    add(outputScroll);
     
     btnGenerate.setBounds(160,125,150,25);
     btnOpenFile.setBounds(50,260,150,25);
@@ -72,6 +77,7 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
     txtAreaOutput.setWrapStyleWord(true);
     txtAreaInput.setLineWrap(true);
     txtAreaOutput.setLineWrap(true);
+    txtAreaOutput.setEditable(false);
     
     txtAreaInput.setText("");
     btnGenerate.addActionListener(new ActionListener() {
@@ -135,7 +141,7 @@ public class MarkovChainsView extends JPanel implements IMarkovChainsView, Actio
         @Override
 	public void actionPerformed(ActionEvent e) {
 		JOptionPane temp = new JOptionPane();
-                String inputValue = (String) temp.showInputDialog(mainFrame, "Please input a value", "Set Output Length", JOptionPane.QUESTION_MESSAGE, null, null, "5"); 
+                String inputValue = (String) temp.showInputDialog(mainFrame, "Please input a value", "Set Output Length", JOptionPane.QUESTION_MESSAGE, null, null, controller.getLength()); 
                 controller.setLength(Integer.valueOf(inputValue));
                 btnSetLength.setText("Output Length: " + controller.getLength());
                 controller.CreateMarkovChains(txtAreaInput.getText());
