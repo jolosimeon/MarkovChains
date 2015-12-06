@@ -18,12 +18,13 @@ public class MarkovChainsController {
        
         public MarkovChainsController(IMarkovChainsView view) {
             this.view = view;
-            this.markov = new Markov();
+            
                
         }
         public void CreateMarkovChains(String input)
         {
-           map = markov.generateMarkovChain(input);
+            markov = new Markov(input);
+           //map = markov.generateMarkovChain(input);
         }
 
         public void GenerateRandomText()
@@ -34,7 +35,7 @@ public class MarkovChainsController {
            String word = null;
            String choices = null;
            String output;
-           wordsArrayList = markov.getTokenizationByTwos();
+           //wordsArrayList = markov.getTokenizationByTwos();
            output = wordsArrayList.get(0);
           while(!"[]".equals(choices))
           {
@@ -48,12 +49,13 @@ public class MarkovChainsController {
           System.out.println(choices);
           if(!"[]".equals(choices))
             choicesTrimmed = choices.substring(1, choices.length()-1);
-            choicesArray = choicesTrimmed.split(",");
+            choicesArray = choicesTrimmed.split("\\s*,\\s*");
             int idx = new Random().nextInt(choicesArray.length);
             String random = (choicesArray[idx]);
             
             output = output.concat(" "+random);
           }
+          output = output.replaceAll(" [^ ]+$", "");
           
           System.out.println(output);
           
