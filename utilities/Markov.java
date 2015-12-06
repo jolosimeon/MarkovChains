@@ -43,7 +43,8 @@ public class Markov {
 		// if its added, then get the suffix vector and add the word
 		// if it hasn't been added then add the word to the list
 		// if its the first or last word then select the _start / _end key
-		
+                if(!words[words.length - 1].contains("."))
+		words[words.length - 1] = words[words.length - 1] + ".";
 		for (int i=0; i<words.length; i++) {
 						
 			// Add the start and end words to their own
